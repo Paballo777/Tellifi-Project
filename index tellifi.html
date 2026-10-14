@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TELLI-Fi</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: lch(61.71% 21.67 273.61);
+      color: #eaeeee;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1120px, 92%);
+      margin: auto;
+    }
+
+    .yellow {
+      color: #24e082;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: #24e092;
+      color: #302f2f;
+      padding: 14px 28px;
+      border-radius: 999px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+    }
+
+    .outline-btn {
+      width: 48px;
+      height: 48px;
+      border: 1px solid #fff;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    header {
+      padding: 24px 0;
+      position: absolute;
+      width: 100%;
+      z-index: 10;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .menu {
+      display: flex;
+      gap: 34px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .menu a.active {
+      color: #24e092;
+      border-bottom: 2px solid #24e092;
+      padding-bottom: 14px;
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .cart {
+      width: 42px;
+      height: 42px;
+      background: #1b2029;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      position: relative;
+    }
+
+    .cart span {
+      position: absolute;
+      top: -4px;
+      right: -2px;
+      background: #24e092;
+      color: #2c2b2b;
+      font-size: 10px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+    }
+
+    .hero {
+      min-height: 760px;
+      padding-top: 130px;
+      background:
+        radial-gradient(circle at 75% 25%, rgba(36, 224, 146, .18), transparent 28%),
+        linear-gradient(135deg, #070b12, #101722);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .eyebrow {
+      color: #24e092;
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-size: clamp(44px, 7vw, 25px);
+      line-height: 1.02;
+      margin-bottom: 24px;
+    }
+
+    .hero p {
+      color: #d8dbe2;
+      max-width: 520px;
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 34px;
+    }
+
+    .watch {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+    }
+
+    .reviews {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .avatars img {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 2px solid #000b22;
+      margin-left: -12px;
+    }
+
+    .stars {
+      color: #24e092;
+      letter-spacing: 2px;
+    }
+
+    .hero-image {
+      position: relative;
+      text-align: center;
+    }
+
+    .hero-image::before {
+      content: "";
+      position: absolute;
+      inset: 8% 10%;
+      border: 3px solid #24e092;
+      border-radius: 50%;
+      box-shadow: 0 0 35px rgba(36, 224, 146, .6);
+    }
+
+    .hero-image img {
+      position: relative;
+      z-index: 2;
+      max-width: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      aspect-ratio: 1 / 1.15;
+      overflow: hidden;
+    }
+
+    .features-bar {
+      margin-top: -80px;
+      position: relative;
+      z-index: 5;
+    }
+
+    .features-card {
+      background: rgba(28, 34, 45, .88);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: 18px;
+      padding-top: 80px;
+      padding: 25px;
+      margin-top: 40px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 28px;
+    }
+
+    .feature {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      border-right: 1px solid rgba(255, 255, 255, .12);
+    }
+
+    .feature:last-child {
+      border-right: none;
+    }
+
+    .icon {
+      min-width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(36, 224, 146, .14);
+      color: #24e092;
+      display: grid;
+      place-items: center;
+      font-size: 28px;
+    }
+
+    .feature h3 {
+      font-size: 17px;
+      margin-bottom: 4px;
+    }
+
+    .feature p {
+      color: #d0d4dc;
+      font-size: 14px;
+    }
+
+    .product-section {
+      margin-top: 32px;
+      padding: 70px 0;
+      background:
+        radial-gradient(circle at 0% 50%, rgba(35, 54, 78, 0.12), transparent 26%),
+        #313b4d;
+      border-top: 1px solid rgba(99, 84, 84, 0.08);
+      border-bottom: 1px solid rgba(255, 255, 255, .08);
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: 1.3fr .8fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .product-grid img {
+      width: 100%;
+    }
+
+    .product-section h2,
+    .testimonials h2 {
+      font-size: 42px;
+      line-height: 1.1;
+      margin-bottom: 18px;
+    }
+
+    .product-section p {
+      color: #d4d8df;
+      margin-bottom: 24px;
+    }
+
+    .spec {
+      display: flex;
+      gap: 16px;
+      margin: 20px 0;
+      align-items: flex-start;
+    }
+
+    .spec .icon {
+      min-width: 42px;
+      height: 42px;
+      font-size: 18px;
+    }
+
+    .spec h4 {
+      font-size: 16px;
+    }
+
+    .spec p {
+      margin: 0;
+      font-size: 14px;
+    }
+
+    .testimonials {
+      padding: 70px 0 35px;
+      text-align: center;
+    }
+
+    .testimonial-grid {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 26px;
+      text-align: left;
+    }
+
+    .testimonial {
+      background: #1a202b;
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: 12px;
+      padding: 28px;
+    }
+
+    .quote {
+      color: #24e092;
+      font-size: 42px;
+      line-height: 1;
+    }
+
+    .testimonial p {
+      color: #d6d9df;
+      margin-bottom: 24px;
+    }
+
+    .user {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .user img {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+    }
+
+    .cta {
+      margin: 35px auto 50px;
+      background: #1a202b;
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: 18px;
+      padding: 30px 70px;
+      display: grid;
+      grid-template-columns: 260px 1fr auto;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .cta img {
+      width: 230px;
+    }
+
+    .cta h2 {
+      font-size: 30px;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+
+    .cta p {
+      color: #d6d9df;
+    }
+
+    footer {
+      background: #506c97;
+      padding: 36px 0;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr repeat(4, 1fr);
+      gap: 40px;
+    }
+
+    footer h4 {
+      margin-bottom: 14px;
+    }
+
+    footer p,
+    footer a {
+      color: #bcc1cb;
+      font-size: 14px;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .socials {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .socials a {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #1b2029;
+      display: grid;
+      place-items: center;
+      color: white;
+    }
+
+    footer div {
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .menu {
+        display: none;
+      }
+
+      .hero-grid,
+      .product-grid,
+      .cta {
+        grid-template-columns: 1fr;
+      }
+
+      .features-card,
+      .testimonial-grid,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .feature {
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, .12);
+        padding-bottom: 20px;
+      }
+
+      .feature:last-child {
+        border-bottom: none;
+      }
+
+      .features-bar {
+        margin-top: 0;
+      }
+
+      .cta {
+        padding: 30px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">⌁ TELLI-Fi</div>
+
+        <div class="menu">
+          <a class="active" href="#hero-section">Home</a>
+          <a href="#features-bar">Features</a>
+          <a href="#cta-buy-now">Shop</a>
+          <a href="#testimonial-section">Reviews</a>
+          <a href="#contact-section">Contact</a>
+        </div>
+
+        <div class="nav-actions">
+          <div class="cart">🛒 <span>0</span></div>
+          <a href="https://www.bing.com/ck/a?!&&p=03a55868d81e33676b0471bc027c884dbbf3969d5018310322f4588b1be4b786JmltdHM9MTc4ODY1MjgwMA&ptn=3&ver=2&hsh=4&fclid=319ff53e-f766-6804-06db-e296f6bd69e7&psq=samsung+shop+link&u=a1aHR0cHM6Ly93d3cuc2Ftc3VuZy5jb20vemEvYXBwcy9zYW1zdW5nLXNob3AtYXBwLz9tc29ja2lkPTMxOWZmNTNlZjc2NjY4MDQwNmRiZTI5NmY2YmQ2OWU3"
+            target="_blank" rel="noopener noreferrer" class="btn">Buy Now</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" id="hero-section">
+    <div class="container hero-grid">
+      <div>
+        <div class="eyebrow">New Launch</div>
+        <h1>
+          Tell more. Feel more.<br>
+          <span class="yellow">THE FUTURE SPEAKS VOLUMES.</span>
+        </h1>
+        <p>
+          TELLI-Fi smartphone is an introduction to the future of mobile technology. With its cutting-edge features,
+          reliable performance, sleek design, speed, camera quality, battery durability, and user-friendly interface.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#" class="btn">GET NOW - R800 p/m →</a>
+          <a href="https://www.youtube.com/shorts/ZxJQu6pOajE?feature=share" target="_blank" rel="noopener noreferrer"
+            class="watch">
+            <span class="outline-btn">▶</span>
+            Watch Video
+          </a>
+        </div>
+
+        <div class="reviews">
+          <div class="avatars">
+            <img
+              src="data:image/webp;base64,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"
+              alt="">
+            <img
+              src="https://static.vecteezy.com/system/resources/previews/037/128/319/large_2x/ai-generated-a-happy-professional-black-man-light-blurry-background-photo.jpg"
+              alt="">
+            <img src="https://th.bing.com/th/id/OIP.gzLfHmdYvetuweFG9eLecgHaEM?w=273&h=180&c=7&r=0&o=7&pid=1.7&rm=3"
+              alt="">
+            <img src="https://th.bing.com/th/id/OIP.Fw-jKqDepfS481rKlUC5nQHaJR?w=122&h=180&c=7&r=0&o=7&pid=1.7&rm=3"
+              alt="">
+          </div>
+          <div>
+            <strong> New Premium Users </strong>
+            <div><span class="stars">★★★★★</span> 4.8 (2.3k reviews)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-image">
+        <img src="https://th.bing.com/th/id/OIP.9nqDU0MMvoBt0GtwRZGJFwHaEK?w=303&h=180&c=7&r=0&o=7&pid=1.7&rm=3"
+          alt="smartphone">
+      </div>
+    </div>
+  </section>
+
+  <section class="features-bar" id="features-bar">
+    <div class="container features-card">
+      <div class="feature">
+        <div class="icon">〰</div>
+        <div>
+          <h3>Battery Life</h3>
+          <p>42hr battery endurance</p>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="icon">💎</div>
+        <div>
+          <h3>Sleek Design</h3>
+          <p>stylish and modern lightweight design</p>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="icon">📷</div>
+        <div>
+          <h3>Camera Quality</h3>
+          <p>100% lens,150MP, OIS, 4K</p>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="icon">⚡</div>
+        <div>
+          <h3>SPEED</h3>
+          <p>Faster, smoother performance @ 12GB RAM</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="product-section" id="product-section">
+    <div class="container product-grid">
+      <div>
+        <img src="https://tse2.mm.bing.net/th/id/OIP.XAD5ruu3uRo9_TyK4JfRmQHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3"
+          alt="smartphone details">
+      </div>
+
+      <div>
+        <div class="eyebrow">Built to Perfection</div>
+        <h2>Hi-Tech Hi-Grade Device <span class="yellow">For You</span></h2>
+        <p>
+          From Hi-Tech features to Sleek Bouji design, every detail is engineered to bring
+          the future from us to yours.
+        </p>
+
+        <div class="spec">
+          <div class="icon">🔋</div>
+          <div>
+            <h4>Battery Life</h4>
+            <p>42hr durability, reserved 5hr backup battery</p>
+          </div>
+        </div>
+
+        <div class="spec">
+          <div class="icon">📍</div>
+          <div>
+            <h4>tracking</h4>
+            <p>device is installed with advanced tracking features.</p>
+          </div>
+        </div>
+
+        <div class="spec">
+          <div class="icon">💎</div>
+          <div>
+            <h4>Sleek Design</h4>
+            <p>Sleek, modern design that stands out with pure crystal finish</p>
+          </div>
+        </div>
+
+        <div class="spec">
+          <div class="icon">📷</div>
+          <div>
+            <h4>Camera Quality</h4>
+            <p>includes 100% lens,150MP, OIS, 4K</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials" id="testimonial-section">
+    <div class="container">
+      <div class="eyebrow">What Our premium Users Say</div>
+      <h2>To be Loved by Thousands</h2>
+
+      <div class="testimonial-grid">
+        <div class="testimonial">
+          <div class="quote">“</div>
+          <p>The crystal clear sound and sleek design make this device a must-have.</p>
+          <div class="user">
+            <img src="https://th.bing.com/th/id/OIP.Fw-jKqDepfS481rKlUC5nQHaJR?w=122&h=180&c=7&r=0&o=7&pid=1.7&rm=3"
+              alt="">
+            <div>
+              <strong>Williams.N.</strong>
+              <div class="stars">★★★★★</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial">
+          <div class="quote">“</div>
+          <p>the advanced tracking features make this device indispensable.</p>
+          <div class="user">
+            <img src="https://th.bing.com/th/id/OIP.gzLfHmdYvetuweFG9eLecgHaEM?w=273&h=180&c=7&r=0&o=7&pid=1.7&rm=3"
+              alt="">
+            <div>
+              <strong>Dlamini.T.</strong>
+              <div class="stars">★★★★★</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial">
+          <div class="quote">“</div>
+          <p>loving the battery life and overall performance.</p>
+          <div class="user">
+            <img
+              src="https://static.vecteezy.com/system/resources/previews/037/128/319/large_2x/ai-generated-a-happy-professional-black-man-light-blurry-background-photo.jpg"
+              alt="">
+            <div>
+              <strong>Ratlou.T.</strong>
+              <div class="stars">★★★★★</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container cta">
+    <img src="https://th.bing.com/th/id/OIP.IGNctRxD9xM6Va3MH2TPjAHaHa?w=155&h=180&c=7&r=0&o=7&pid=1.7&rm=3"
+      alt="Smartphone">
+    <div>
+      <h2>A DEVICE YOU CAN RELY ON</h2>
+      <p>Want to experience the future with fast paced, relaible smartphone.</p>
+    </div>
+    <a id="cta-buy-now" href="#" class="btn">Get Yours Now – R800 p/m →</a>
+  </section>
+
+  <footer id="contact-section">
+    <div class="container footer-grid">
+      <div>
+        <div class="logo">⌁ TELLI-Fi</div>
+        <p>Building the future of connectivity, creativity, and smart-tech.</p>
+      </div>
+
+      <div>
+        <h4>Product</h4>
+        <p>Be the first to experience the next generation of connectivity. First 20 purchasers will receive the product
+          with a discount at <span>R650 p/m</span> for you.</p>
+      </div>
+
+      <div>
+        <h4>CONTACT US</h4>
+        <a href="mailto:informations@tellif.com">informations@tellif.com</a>
+        <a href="tel:+27664968491">Call Us</a>
+      </div>
+
+      <div>
+        <h4>Support</h4>
+        <a href="#">FAQs</a>
+        <a href="#">Shipping</a>
+        <a href="#">Delivery</a>
+        <a href="#">Returns</a>
+      </div>
+
+      <div>
+        <h4>Stay Connected</h4>
+        <div class="socials">
+          <a href="#">f</a>
+          <a href="#">◎</a>
+          <a href="#">𝕏</a>
+          <a href="#">▶</a>
+        </div>
+        <p>© 2026 TELLI-Fi. All rights reserved.</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <br />
+      <hr />
+      <br />
+      <h4 class="home-footer">Copyright © 2026 Paballo Mashigo</h4>
+    </div>
+  </footer>
+
+</body>
+
+</html>
